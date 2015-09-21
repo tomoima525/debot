@@ -11,11 +11,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 
-public class DebugInputStrategy extends DebotStrategy{
+public class DebotCallActivityMethodStrategy extends DebotStrategy{
 
     final String methodName;
 
-    public DebugInputStrategy(@NonNull String methodName){
+    /**
+     * Constructor. A parameter should be same as a method name you want to call from Activity
+     * @param methodName
+     */
+    public DebotCallActivityMethodStrategy(@NonNull String methodName){
         this.methodName = methodName;
     }
 

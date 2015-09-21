@@ -5,7 +5,7 @@ import android.content.Context;
 import com.tomoima.debot.strategy.CheckAppVersionStrategy;
 import com.tomoima.debot.strategy.CheckDpiStrategy;
 import com.tomoima.debot.strategy.DebotStrategy;
-import com.tomoima.debot.strategy.DebugInputStrategy;
+import com.tomoima.debot.strategy.DebotCallActivityMethodStrategy;
 import com.tomoima.debot.strategy.ShowActivityInfoStrategy;
 
 import java.util.ArrayList;
@@ -27,8 +27,8 @@ public class DebotConfigurator {
                 .registerMenu("check dpi", new CheckDpiStrategy())
                 .registerMenu("show intent", new ShowActivityInfoStrategy())
                 .registerMenu("check App ver", new CheckAppVersionStrategy())
-                .registerMenu("dev input", new DebugInputStrategy("debugInput"))
-                .registerMenu("dev input 2", new DebugInputStrategy("debugInput2"))
+                .registerMenu("dev input", new DebotCallActivityMethodStrategy("debugInput"))
+                .registerMenu("dev input 2", new DebotCallActivityMethodStrategy("debugInput2"))
                 .build();
         return builder.getStrategyList();
     }
