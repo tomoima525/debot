@@ -32,7 +32,7 @@ public class Debot {
         if(refActivity != null && refActivity == activity) {
             weakRefActivity = null;
         } else {
-            throw new IllegalStateException("Can't find activity. Check if Mace.onResume() is called at onResume()");
+            throw new IllegalStateException("Can't find activity. Check if Debot.onResume() is called at onResume()");
         }
     }
 
