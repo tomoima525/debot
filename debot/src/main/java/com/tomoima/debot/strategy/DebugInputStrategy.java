@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.tomoima.debot.annotation.DebotAnnotation;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -23,7 +24,9 @@ public class DebugInputStrategy extends DebotStrategy{
         Class clazz = activity.getClass();
         Method[] methods = clazz.getDeclaredMethods();
         for (Method method : methods) {
-            if (method.isAnnotationPresent(DebotAnnotation.class) || method.getName().endsWith(methodName)) {
+            if (!method.isAnnotationPresent(DebotAnnotation.class)) continue;
+            Annotation annotation = method.getAnnotation(DebotAnnotation.class);
+            if (methodName.equals(((DebotAnnotation) annotation).value())){
                 try {
                     method.invoke(activity, null);
                 } catch (InvocationTargetException e) {
@@ -32,6 +35,7 @@ public class DebugInputStrategy extends DebotStrategy{
                     e.printStackTrace();
                 }
             }
+
         }
     }
 }

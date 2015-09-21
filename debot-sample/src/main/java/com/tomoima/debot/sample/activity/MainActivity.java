@@ -57,4 +57,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         EditText editText = (EditText) findViewById(R.id.input_1);
         editText.setText("This is sample!");
     }
+
+    @DebotAnnotation("debugInput2")
+    public void debugInput2() {
+        EditText editText = (EditText) findViewById(R.id.input_2);
+        editText.setText("This is sample 2!");
+    }
 }
