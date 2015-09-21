@@ -1,4 +1,5 @@
 # Debot
+![debot_logo.png](art/debot_logo.png)  
 A simple Android library to create Debugging menu.
 
 Debot offers features that are useful to debug Android applications. Developers can easily add their custom debugging features with simple steps.
@@ -79,12 +80,71 @@ You can create your own debugging feature by developing a class which inherits `
 
 
 ```java
+public class MyDebotStrategy extends DebotStrategy{
+    @Override
+    public void startAction(@NonNull Activity activity) {
+    // Do your things
+    }
+}
 ```
 
 Then, at the Application class, call `Debot.configureWithCustomizeMenu()`
 
 
-## Set up BaseActivity
- It might be better to call Debot from BaseActivity so that you don't have to care about 
- 
+```java
+public class MyApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        DebotStrategyBuilder builder = new DebotStrategyBuilder.Builder(context)
+                .registerMenu("My debug feature", new MyDebotStrategy())
+                .build();
+        DebotConfigurator.configureWithCustomizeMenu(this, builder.getStrategyList());
+    }
+}
+```
+
+## Call a specific method from your Activity
+If you want to call a specific method from your Activity, annotate the method with `@DebotAnnotation`
+
+```java
+//Your Activity
+@DebotAnnotation("debugInput")  // A parameter for @DebotAnnotation should be same as the method's name
+public void debugInput() {
+    // Do things
+}
+
+```
+
+Also, setup a custom debugging plugin with `DebotCallActivityMethodStrategy`
+
+```java
+public class MyApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        DebotStrategyBuilder builder = new DebotStrategyBuilder.Builder(context)
+                .registerMenu("input", new DebotCallActivityMethodStrategy("debugInput"))
+                .build();
+        DebotConfigurator.configureWithCustomizeMenu(this, builder.getStrategyList());
+    }
+}
+
+```
+
 ## License
+
+```
+Licensed under the Apache License, Version 2.0 (the "License"). 
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+OR CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the License.
+
+You agree that all contributions to this repository, in the form of fixes, 
+pull-requests, new examples etc. follow the above-mentioned license.
+```
