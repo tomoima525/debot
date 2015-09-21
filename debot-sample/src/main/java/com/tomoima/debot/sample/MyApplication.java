@@ -32,7 +32,7 @@ public class MyApplication extends Application {
     }
 
     /**
-     * If a device is a tablet, allow an applicaiton to autoRotate
+     * If a device is a tablet, allow an application to autoRotate
      *
      * @return true: autoRotate false: Do not allow landscape mode
      */
