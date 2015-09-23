@@ -1,5 +1,8 @@
 apply plugin: 'com.android.library'
 
+repositories {
+    jcenter()
+}
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
@@ -9,6 +12,7 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -16,9 +20,27 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        encoding = 'UTF-8'
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.1'
+
+    androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
+    androidTestCompile 'org.hamcrest:hamcrest-library:1.3'
+    androidTestCompile('org.mockito:mockito-core:1.10.19') {
+        exclude group: 'org.hamcrest', module: 'hamcrest-core'
+    }
+    androidTestCompile('com.google.dexmaker:dexmaker-mockito:1.2') {
+        exclude group: 'org.mockito', module: 'mockito-core'
+    }
 }

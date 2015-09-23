@@ -28,7 +28,10 @@ public class Debot {
     }
 
     public static void onPause(Activity activity) {
-        Activity refActivity = weakRefActivity.get();
+        Activity refActivity = null;
+        if(weakRefActivity != null) {
+            refActivity = weakRefActivity.get();
+        }
         if(refActivity != null && refActivity == activity) {
             weakRefActivity = null;
         } else {
@@ -45,13 +48,17 @@ public class Debot {
     }
 
     public static boolean onOptionsItemSelected(MenuItem item) {
-        Activity activity = weakRefActivity.get();
-        if(activity == null) {
+        Activity refActivity = null;
+        if(weakRefActivity != null) {
+            refActivity = weakRefActivity.get();
+        }
+
+        if(refActivity == null) {
             throw new IllegalStateException("Activity is not set");
         }
 
         if(item.getGroupId() == GROUP_ID) {
-            debugStrategies.get(item.getItemId()).startAction(activity);
+            debugStrategies.get(item.getItemId()).startAction(refActivity);
             return true;
         }
 
