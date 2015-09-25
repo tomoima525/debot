@@ -9,3 +9,4 @@
 /gradle.properties
 # app's private.properties
 debot/private.properties
+debot/local.properties
