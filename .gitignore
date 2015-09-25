@@ -5,3 +5,6 @@
 .DS_Store
 /build
 /captures
+
+# app's private.properties
+debot/private.properties
