@@ -1,8 +1,23 @@
+[ ![Download](https://api.bintray.com/packages/tomoima525/maven/debot/images/download.svg) ](https://bintray.com/tomoima525/maven/debot/_latestVersion)
 # Debot
 ![debot_logo.png](art/debot_logo.png)  
 A simple Android library to create Debugging menu.
 
 Debot offers features that are useful to debug Android applications. Developers can easily add their custom debugging features with simple steps.
+
+## How it looks
+Once you setup Debot to your app, you will see couple of debugging features are added to your toolbar menu.
+
+* Default debugging menus  
+![debot-sample1.png](art/debot-sample1.png)
+* Check Density  
+![debot-sample4.png](art/debot-sample4.png)
+* Check App ver  
+![debot-sample2.png](art/debot-sample2.png)
+* Show intent and Activity Info  
+![debot-sample3.png](art/debot-sample3.png)
+* Dev input (Automatically adds text to EditText field )  
+![debot-sample5.png](art/debot-sample5.png)
 
 
 ## Setup
@@ -10,8 +25,8 @@ Debot offers features that are useful to debug Android applications. Developers 
 Grab Debot from Gradle:
 
 ```groovy
-compileDev 'com.tomoima.debot:debot:1.0.0'
-compileRelease 'com.tomoima.debot:no-op:1.0.0'
+compileDebug 'com.tomoima.debot:debot:1.0.1'
+compileRelease 'com.tomoima.debot:no-op:1.0.1'
 ```
 
 ### Initialization
