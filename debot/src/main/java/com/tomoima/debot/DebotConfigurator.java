@@ -28,7 +28,6 @@ public class DebotConfigurator {
                 .registerMenu("show intent", new ShowActivityInfoStrategy())
                 .registerMenu("check App ver", new CheckAppVersionStrategy())
                 .registerMenu("dev input", new DebotCallActivityMethodStrategy("debugInput"))
-                .registerMenu("dev input 2", new DebotCallActivityMethodStrategy("debugInput2"))
                 .build();
         return builder.getStrategyList();
     }
