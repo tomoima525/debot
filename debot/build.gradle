@@ -57,7 +57,7 @@ dependencies {
 }
 
 group = 'com.tomoima.debot'
-version = '1.0'
+version = '1.0.1'
 
 def siteUrl = 'https://github.com/tomoima525/debot'
 def gitUrl = 'https://github.com/tomoima525/debot.git'
@@ -66,19 +66,18 @@ bintray {
     user = bintrayUserProperty
     key = bintrayApiKeyProperty
 
+    configurations = ['archives']
     pkg {
         repo = 'maven'
         name = 'debot'
         vcsUrl = gitUrl
+        desc = 'A simple Android library to create Debugging menu.'
+        issueTrackerUrl = 'https://github.com/tomoima525/debot/issues'
         licenses = ['Apache-2.0']
+        vcsUrl = gitUrl
+        labels = ['android']
         publicDownloadNumbers = true
-        version {
-            name = '1.0.0'
-            desc = 'A simple Android library to create Debugging menu.'
-            released  = new Date()
-            vcsTag = '1.0.0'
 
-        }
     }
 }
 
@@ -112,16 +111,7 @@ install {
         }
     }
 }
-//publishing {
-//    publications {
-//        MyPublication(MavenPublication) {
-//            from components.java
-//            groupId 'com.tomoima.debot'
-//            artifactId 'debot'
-//            version '1.0'
-//        }
-//    }
-//}
+
 
 def getBintrayUserProperty() {
     return hasProperty('BINTRAY_USER') ? BINTRAY_USER : ""
@@ -129,10 +119,6 @@ def getBintrayUserProperty() {
 
 def getBintrayApiKeyProperty() {
     return hasProperty('BINTRAY_KEY') ? BINTRAY_KEY : ""
-}
-
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 task sourcesJar(type: Jar) {
