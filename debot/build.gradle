@@ -73,7 +73,7 @@ bintray {
         licenses = ['Apache-2.0']
         publicDownloadNumbers = true
         version {
-            name = '1.0-Final'
+            name = '1.0.0'
             desc = 'A simple Android library to create Debugging menu.'
             released  = new Date()
             vcsTag = '1.0.0'
