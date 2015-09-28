@@ -1,9 +1,12 @@
 [ ![Download](https://api.bintray.com/packages/tomoima525/maven/debot/images/download.svg) ](https://bintray.com/tomoima525/maven/debot/_latestVersion)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Debot-green.svg?style=flat)](https://android-arsenal.com/details/1/2562)
 # Debot
 ![debot_logo.png](art/debot_logo.png)  
 A simple Android library to create Debugging menu.
 
 Debot offers features that are useful to debug Android applications. Those features can be added to any activity that has the toolbar menu. Also, developers can easily add their own custom debugging features with simple steps.
+
+![debot_4.gif](art/debot_4.gif)
 
 ## How it looks
 Once you setup Debot to your app, you will see couple of debugging features are added to your toolbar menu.
