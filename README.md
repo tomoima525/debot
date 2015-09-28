@@ -26,7 +26,7 @@ Grab Debot from Gradle:
 
 ```groovy
 compileDebug 'com.tomoima.debot:debot:1.0.1'
-compileRelease 'com.tomoima.debot:no-op:1.0.1'
+compileRelease 'com.tomoima.debot:debot-no-op:1.0.1'
 ```
 
 ### Initialization
