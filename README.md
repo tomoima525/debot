@@ -1,4 +1,4 @@
-[ ![Download](https://api.bintray.com/packages/tomoima525/maven/debot/images/download.svg) ](https://bintray.com/tomoima525/maven/debot/_latestVersion)
+[![Download](https://api.bintray.com/packages/tomoima525/maven/debot/images/download.svg) ](https://bintray.com/tomoima525/maven/debot/_latestVersion)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Debot-green.svg?style=flat)](https://android-arsenal.com/details/1/2562)
 [![Circle CI](https://circleci.com/gh/tomoima525/debot.svg?style=svg)](https://circleci.com/gh/tomoima525/debot)
 # Debot
