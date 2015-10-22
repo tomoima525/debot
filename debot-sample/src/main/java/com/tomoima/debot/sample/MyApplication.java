@@ -3,6 +3,8 @@ import android.app.Application;
 import android.content.res.Configuration;
 
 import com.tomoima.debot.DebotConfigurator;
+import com.tomoima.debot.DebotStrategyBuilder;
+import com.tomoima.debot.sample.strategy.MyCustomStrategy;
 import com.tomoima.debot.sample.utils.LocalStorageUtil;
 
 
@@ -28,7 +30,11 @@ public class MyApplication extends Application {
         sApp = this;
         //Check if a device is a tablet
         LocalStorageUtil.putBoolean("is_tablet", getResources().getBoolean(R.bool.is_tablet));
-        DebotConfigurator.configureWithDefault(this);
+
+        DebotStrategyBuilder builder = new DebotStrategyBuilder.Builder(this)
+                .registerMenu("My debug feature", new MyCustomStrategy())
+                .build();
+        DebotConfigurator.configureWithCustomizedMenu(this, builder.getStrategyList());
     }
 
     /**
