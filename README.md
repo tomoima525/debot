@@ -29,8 +29,8 @@ Once you setup Debot to your app, you will see couple of debugging features are 
 Grab Debot from Gradle:
 
 ```groovy
-debugCompile 'com.tomoima.debot:debot:1.0.1'
-releaseCompile 'com.tomoima.debot:debot-no-op:1.0.1'
+debugCompile 'com.tomoima.debot:debot:1.0.2'
+releaseCompile 'com.tomoima.debot:debot-no-op:1.0.2'
 ```
 
 ### Initialization
