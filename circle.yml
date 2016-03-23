@@ -1,0 +1,11 @@
+machine:
+  java:
+    version: openjdk7
+  environment:
+    ANDROID_HOME: /usr/local/android-sdk-linux
+    _JAVA_OPTIONS: "-Xms256m -Xmx1280m -XX:MaxPermSize=350m"
+    GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx1792m -Xms1792m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError"'
+
+dependencies:
+  override:
+    - echo y | android update sdk --no-ui --all --filter extra-google-m2repository,extra-android-m2repository,build-tools-23.0.1,android-23
