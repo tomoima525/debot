@@ -26,7 +26,7 @@ public class NextActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_next);
-
+        Debot.getInstance(this);
     }
 
     @Override
@@ -36,15 +36,7 @@ public class NextActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        Debot.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_next, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Debot.onOptionsItemSelected(item);
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
@@ -54,17 +46,5 @@ public class NextActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Debot.onResume(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Debot.onPause(this);
     }
 }

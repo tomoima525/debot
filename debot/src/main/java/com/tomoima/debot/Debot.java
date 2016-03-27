@@ -43,7 +43,7 @@ public class Debot extends Fragment {
         super.onCreate(savedInstanceState);
         debotStrategyList = (ArrayList<DebotStrategy>) getArguments().getSerializable(STRATEGIES);
     }
-    
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         int i = 0;
