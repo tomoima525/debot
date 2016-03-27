@@ -2,7 +2,11 @@ package com.tomoima.debot;
 
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.tomoima.debot.strategy.DebotStrategy;
@@ -10,59 +14,53 @@ import com.tomoima.debot.strategy.DebotStrategy;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-public class Debot {
+public class Debot extends Fragment {
+    private static final String TAG = "com.tomoima.debot.Debot";
+    private static final String STRATEGIES = "strategies";
+    private ArrayList<DebotStrategy> debotStrategyList;
     private final static int GROUP_ID = Integer.MAX_VALUE;
-    private static ArrayList<DebotStrategy> debugStrategies;
     private static WeakReference<Activity> weakRefActivity;
 
-    private Debot(){
+    public Debot(){
         //Do nothing
     }
 
-    public static void initialize(ArrayList<DebotStrategy> strategies){
-        debugStrategies = strategies;
-    }
-
-    public static void onResume(Activity activity){
-        weakRefActivity = new WeakReference<>(activity);
-    }
-
-    public static void onPause(Activity activity) {
-        Activity refActivity = null;
-        if(weakRefActivity != null) {
-            refActivity = weakRefActivity.get();
+    public static Debot getInstance(Activity activity){
+        FragmentManager fm = activity.getFragmentManager();
+        Debot debot = (Debot)fm.findFragmentByTag(TAG);
+        if(debot == null){
+            debot = new Debot();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(STRATEGIES, new DebotStrategies().getStrategies());
+            debot.setArguments(bundle);
+            fm.beginTransaction().add(debot,TAG).commit();
         }
-        if(refActivity != null && refActivity == activity) {
-            weakRefActivity = null;
-        } else {
-            throw new IllegalStateException("Can't find activity. Check if Debot.onResume() is called at onResume()");
-        }
+        return debot;
     }
 
-    public static void onCreateOptionsMenu(Menu menu){
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        debotStrategyList = (ArrayList<DebotStrategy>) getArguments().getSerializable(STRATEGIES);
+    }
+    
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         int i = 0;
-        for(DebotStrategy strategy: debugStrategies){
+        for(DebotStrategy strategy: debotStrategyList){
             menu.add(GROUP_ID, i, 0, strategy.getStrategyMenuName());
             i++;
         }
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
-    public static boolean onOptionsItemSelected(MenuItem item) {
-        Activity refActivity = null;
-        if(weakRefActivity != null) {
-            refActivity = weakRefActivity.get();
-        }
-
-        if(refActivity == null) {
-            throw new IllegalStateException("Activity is not set");
-        }
-
-        if(item.getGroupId() == GROUP_ID) {
-            debugStrategies.get(item.getItemId()).startAction(refActivity);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getGroupId() == GROUP_ID) {
+            debotStrategyList.get(item.getItemId()).startAction(getActivity());
             return true;
         }
-
-        return false;
+        return super.onOptionsItemSelected(item);
     }
 
     public static void setVisibility(Menu menu, boolean isVisible){
