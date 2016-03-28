@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.tomoima.debot">
+
+    <application>
+        <!--suppress AndroidDomInspection -->
+        <activity android:name=".testUtils.TestActivity" />
+
+    </application>
+</manifest>

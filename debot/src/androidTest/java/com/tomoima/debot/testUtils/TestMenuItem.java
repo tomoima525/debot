@@ -8,9 +8,6 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 
-/**
- * Created by tomoaki on 3/27/16.
- */
 public class TestMenuItem implements MenuItem {
 
     private boolean isVisible;

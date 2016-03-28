@@ -11,7 +11,6 @@ import android.view.MenuItem;
 
 import com.tomoima.debot.strategy.DebotStrategy;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public class Debot extends Fragment {
@@ -19,7 +18,6 @@ public class Debot extends Fragment {
     private static final String STRATEGIES = "strategies";
     private ArrayList<DebotStrategy> debotStrategyList;
     private final static int GROUP_ID = Integer.MAX_VALUE;
-    private static WeakReference<Activity> weakRefActivity;
 
     public Debot(){
         //Do nothing
@@ -56,7 +54,7 @@ public class Debot extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getGroupId() == GROUP_ID) {
+        if (item.getGroupId() == GROUP_ID && getActivity() != null) {
             debotStrategyList.get(item.getItemId()).startAction(getActivity());
             return true;
         }
