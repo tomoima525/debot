@@ -20,8 +20,8 @@ import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -56,7 +56,7 @@ public class DebotTest {
         when(menu.size()).thenReturn(1);
         when(menu.getItem(0)).thenReturn(menuItem);
         Debot.setVisibility(menu,true);
-        assertTrue(menuItem.isVisible());
+        assertThat(menuItem.isVisible(),is(true));
     }
 
     @Test
@@ -66,7 +66,7 @@ public class DebotTest {
         menuItem = mock(MenuItem.class);
         when(menuItem.getItemId()).thenReturn(0);
         when(menuItem.getGroupId()).thenReturn(1);
-        assertFalse(debot.onOptionsItemSelected(menuItem));
+        assertThat(debot.onOptionsItemSelected(menuItem),is(false));
     }
 
     @Test
@@ -75,7 +75,7 @@ public class DebotTest {
         menuItem = mock(MenuItem.class);
         when(menuItem.getItemId()).thenReturn(0);
         when(menuItem.getGroupId()).thenReturn(Integer.MAX_VALUE);
-        assertTrue(debot.onOptionsItemSelected(menuItem));
+        assertThat(debot.onOptionsItemSelected(menuItem),is(true));
     }
 
 }
