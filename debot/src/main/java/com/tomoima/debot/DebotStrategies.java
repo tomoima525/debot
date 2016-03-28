@@ -4,9 +4,6 @@ import com.tomoima.debot.strategy.DebotStrategy;
 
 import java.util.ArrayList;
 
-/**
- * Created by tomoaki on 3/27/16.
- */
 public class DebotStrategies {
     private static ArrayList<DebotStrategy> strategies;
 
