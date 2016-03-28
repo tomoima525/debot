@@ -29,12 +29,12 @@ Once you setup Debot to your app, you will see couple of debugging features are 
 Grab Debot from Gradle:
 
 ```groovy
-debugCompile 'com.tomoima.debot:debot:1.0.2'
-releaseCompile 'com.tomoima.debot:debot-no-op:1.0.2'
+debugCompile 'com.tomoima.debot:debot:1.1.0'
+releaseCompile 'com.tomoima.debot:debot-no-op:1.1.0'
 ```
 
 ### Initialization
-1. Call `DebotConfigurator.configureWithDefault()` at the Application class.
+1. Call `DebotConfigurator.configureWithDefault()` at the Application's `onCreate()` class.
 
 ```java
 public class MyApplication extends Application {
@@ -50,29 +50,11 @@ public class MyApplication extends Application {
 
 ```java
 public class MainActivity extends AppCompatActivity{
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        Debot.onCreateOptionsMenu(menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Debot.onOptionsItemSelected(item);
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Debot.onResume(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Debot.onPause(this);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Debot.getInstance(this);
     }
 }    
 ```
@@ -154,7 +136,8 @@ public class MyApplication extends Application {
 ## License
 
 ```
-Licensed under the Apache License, Version 2.0 (the "License"). 
+Tomoaki Imai 2016
+Licensed under the Apache License, Version 2.0 (the "License").
 You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
