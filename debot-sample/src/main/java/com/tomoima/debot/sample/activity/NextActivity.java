@@ -30,6 +30,12 @@ public class NextActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_next, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         Debot.setVisibility(menu, menuVisibility);
         return super.onPrepareOptionsMenu(menu);
