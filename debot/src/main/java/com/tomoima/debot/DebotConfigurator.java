@@ -13,13 +13,13 @@ import java.util.ArrayList;
 public class DebotConfigurator {
 
     public static void configureWithDefault(Context context) {
-        Debot.initialize(createDefaultMenuConfig(context));
+        new DebotStrategies().initialize(createDefaultMenuConfig(context));
     }
 
     public static void configureWithCustomizedMenu(Context context, ArrayList<DebotStrategy> customList){
         ArrayList<DebotStrategy> registerList = createDefaultMenuConfig(context);
         registerList.addAll(customList);
-        Debot.initialize(registerList);
+        new DebotStrategies().initialize(registerList);
     }
 
     private static ArrayList<DebotStrategy> createDefaultMenuConfig(Context context){

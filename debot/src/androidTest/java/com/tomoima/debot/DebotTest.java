@@ -3,42 +3,38 @@ package com.tomoima.debot;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.test.InstrumentationRegistry;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.tomoima.debot.strategy.DebotStrategy;
+import com.tomoima.debot.testUtils.DebotTestUtils;
+import com.tomoima.debot.testUtils.TestActivity;
+import com.tomoima.debot.testUtils.TestMenuItem;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 
-import java.lang.ref.WeakReference;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@RunWith(AndroidJUnit4.class)
 public class DebotTest {
 
-    private Activity activity;
-
     @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    public final ActivityTestRule<TestActivity> activityTestRule = new ActivityTestRule<>(TestActivity.class);
+    private Activity activity;
+    private Debot debot;
+
     @Before
     public void setUp(){
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
-            @Override
-            public void run() {
-                activity = new Activity();
-            }
-        });
 
         ArrayList<DebotStrategy> dummyStrategy = new ArrayList<>();
         dummyStrategy.add(new DebotStrategy() {
@@ -48,79 +44,38 @@ public class DebotTest {
             }
         });
 
-        Debot.initialize(dummyStrategy);
+        new DebotStrategies().initialize(dummyStrategy);
+        activity = activityTestRule.getActivity();
+        debot = DebotTestUtils.getDebotMock(activity);
     }
 
     @Test
-    public void testOnPause_ThrowsExceptionIfActivityIsNull(){
-        expectedException.expect(IllegalStateException.class);
-        expectedException.expectMessage("Can't find activity. Check if Debot.onResume() is called at onResume()");
-
-        setWeakReferenceActivity(null);
-
-        Debot.onPause(activity);
+    public void testSetVisibility() {
+        MenuItem menuItem = new TestMenuItem();
+        Menu menu = mock(Menu.class);
+        when(menu.size()).thenReturn(1);
+        when(menu.getItem(0)).thenReturn(menuItem);
+        Debot.setVisibility(menu,true);
+        assertThat(menuItem.isVisible(),is(true));
     }
 
     @Test
-    public void testOnResume(){
-        Debot.onResume(activity);
-    }
+    public void testOnOptionsItemSelected_returnFalseIfGroupIdDoesNotMatch() {
 
-    @Test
-    public void testOnOptionsItemSelected_ThrowsExceptionIfActivityIsNull() {
-        expectedException.expect(IllegalStateException.class);
-        expectedException.expectMessage("Activity is not set");
-
-        setWeakReferenceActivity(null);
-
-        MenuItem menuItem;
-        menuItem = mock(MenuItem.class);
-        when(menuItem.getItemId()).thenReturn(0);
-        when(menuItem.getGroupId()).thenReturn(Integer.MAX_VALUE);
-        Debot.onOptionsItemSelected(menuItem);
-
-    }
-
-    @Test
-    public void testOnOptionsItemSelected_returnFalseIfGroupIdDoesntMatch() {
-
-        setWeakReferenceActivity(activity);
         MenuItem menuItem;
         menuItem = mock(MenuItem.class);
         when(menuItem.getItemId()).thenReturn(0);
         when(menuItem.getGroupId()).thenReturn(1);
-        assertFalse(Debot.onOptionsItemSelected(menuItem));
+        assertThat(debot.onOptionsItemSelected(menuItem),is(false));
     }
 
     @Test
     public void testOnOptionsItemSelected_returnTrueIfGroupIdDoesMatch(){
-        setWeakReferenceActivity(activity);
         MenuItem menuItem;
         menuItem = mock(MenuItem.class);
         when(menuItem.getItemId()).thenReturn(0);
         when(menuItem.getGroupId()).thenReturn(Integer.MAX_VALUE);
-        assertTrue(Debot.onOptionsItemSelected(menuItem));
-    }
-
-    private void setWeakReferenceActivity(@Nullable Activity activity){
-        try {
-            Constructor<Debot> debotConstructor = Debot.class.getDeclaredConstructor(null);
-            debotConstructor.setAccessible(true);
-            Debot debot = debotConstructor.newInstance(null);
-            Field f = debot.getClass().getDeclaredField("weakRefActivity");
-            f.setAccessible(true);
-            f.set(null, activity != null ? new WeakReference<>(activity): null);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
+        assertThat(debot.onOptionsItemSelected(menuItem),is(true));
     }
 
 }
