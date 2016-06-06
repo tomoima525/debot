@@ -29,9 +29,12 @@ Once you setup Debot to your app, you will see couple of debugging features are 
 Grab Debot from Gradle:
 
 ```groovy
-debugCompile 'com.tomoima.debot:debot:1.1.0'
-releaseCompile 'com.tomoima.debot:debot-no-op:1.1.0'
+debugCompile 'com.tomoima.debot:debot:{latest_version}'
+releaseCompile 'com.tomoima.debot:debot-no-op:{latest_version}'
 ```
+
+{latest_version} is now :[![Download](https://api.bintray.com/packages/tomoima525/maven/debot/images/download.svg) ](https://bintray.com/tomoima525/maven/debot/_latestVersion)
+
 
 ### Initialization
 1. Call `DebotConfigurator.configureWithDefault()` at the Application's `onCreate()` class.
