@@ -1,9 +1,10 @@
 package com.tomoima.debot.sample.fragments;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import android.content.res.Resources;
 
 import com.tomoima.debot.sample.MyApplication;
 
@@ -13,9 +14,9 @@ public class BaseFragment extends Fragment {
     public Activity mActivity;
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mActivity = activity;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mActivity = (Activity) context;
     }
 
     @SuppressWarnings("unchecked")
