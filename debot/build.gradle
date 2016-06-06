@@ -58,7 +58,7 @@ dependencies {
 }
 
 group = 'com.tomoima.debot'
-version = '1.1.0'
+version = '1.1.1'
 
 def siteUrl = 'https://github.com/tomoima525/debot'
 def gitUrl = 'https://github.com/tomoima525/debot.git'
