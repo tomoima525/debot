@@ -17,7 +17,7 @@ public class DebotCallActivityMethodStrategy extends DebotStrategy{
 
     /**
      * Constructor. A parameter should be same as a method name you want to call from Activity
-     * @param methodName
+     * @param methodName method name to call
      */
     public DebotCallActivityMethodStrategy(@NonNull String methodName){
         this.methodName = methodName;
@@ -32,7 +32,7 @@ public class DebotCallActivityMethodStrategy extends DebotStrategy{
             Annotation annotation = method.getAnnotation(DebotAnnotation.class);
             if (methodName.equals(((DebotAnnotation) annotation).value())){
                 try {
-                    method.invoke(activity, null);
+                    method.invoke(activity);
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
