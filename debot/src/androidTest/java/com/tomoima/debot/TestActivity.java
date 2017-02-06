@@ -1,4 +1,4 @@
-package com.tomoima.debot.testUtils;
+package com.tomoima.debot;
 
 import android.app.Activity;
 

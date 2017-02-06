@@ -1,9 +1,8 @@
-package com.tomoima.debot.testUtils;
+package com.tomoima.debot;
 
 
 import android.app.Activity;
-
-import com.tomoima.debot.Debot;
+import android.support.v4.app.FragmentManager;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -11,15 +10,15 @@ import static android.support.test.InstrumentationRegistry.getInstrumentation;
 
 public class DebotTestUtils {
 
-    public static Debot getDebotMock(Activity activity){
-        Debot debot = Debot.getInstance(activity);
+    public static TestDebot getTestDebot(Activity activity){
+        TestDebot debot = TestDebot.getInstance();
         getInstrumentation().waitForIdleSync();
         try {
             waitForFragmentTransaction(activity);
             return debot;
         } catch (InterruptedException e) {
             e.printStackTrace();
-            return new Debot();
+            return new TestDebot();
         }
     }
 
@@ -34,4 +33,18 @@ public class DebotTestUtils {
         });
         latch.await();
     }
+
+    public static class TestDebot extends Debot {
+
+        public static TestDebot getInstance() {
+            return new TestDebot();
+        }
+
+        @Override
+        public void show(FragmentManager manager, String tag) {
+
+        }
+
+    }
+
 }

@@ -25,7 +25,7 @@ public class DebotConfigurator {
     private static ArrayList<DebotStrategy> createDefaultMenuConfig(Context context){
         DebotStrategyBuilder builder = new DebotStrategyBuilder.Builder(context)
                 .registerMenu("check dpi", new CheckDpiStrategy())
-                .registerMenu("show intent", new ShowActivityInfoStrategy())
+                .registerMenu("showDebugMenu intent", new ShowActivityInfoStrategy())
                 .registerMenu("check App ver", new CheckAppVersionStrategy())
                 .registerMenu("dev input", new DebotCallActivityMethodStrategy("debugInput"))
                 .build();

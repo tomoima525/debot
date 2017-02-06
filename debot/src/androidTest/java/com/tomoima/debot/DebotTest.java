@@ -2,16 +2,15 @@ package com.tomoima.debot;
 
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 
 import com.tomoima.debot.strategy.DebotStrategy;
-import com.tomoima.debot.testUtils.DebotTestUtils;
-import com.tomoima.debot.testUtils.TestActivity;
-import com.tomoima.debot.testUtils.TestMenuItem;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -20,9 +19,10 @@ import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(AndroidJUnit4.class)
@@ -31,10 +31,13 @@ public class DebotTest {
     @Rule
     public final ActivityTestRule<TestActivity> activityTestRule = new ActivityTestRule<>(TestActivity.class);
     private Activity activity;
-    private Debot debot;
+    private DebotTestUtils.TestDebot debot; // TestDebot is a Debot that has minimum function
+
+    FragmentManager fragmentManager;
 
     @Before
     public void setUp(){
+        fragmentManager = mock(FragmentManager.class);
 
         ArrayList<DebotStrategy> dummyStrategy = new ArrayList<>();
         dummyStrategy.add(new DebotStrategy() {
@@ -46,36 +49,41 @@ public class DebotTest {
 
         new DebotStrategies().initialize(dummyStrategy);
         activity = activityTestRule.getActivity();
-        debot = DebotTestUtils.getDebotMock(activity);
+        debot = DebotTestUtils.getTestDebot(activity);
     }
 
     @Test
-    public void testSetVisibility() {
-        MenuItem menuItem = new TestMenuItem();
-        Menu menu = mock(Menu.class);
-        when(menu.size()).thenReturn(1);
-        when(menu.getItem(0)).thenReturn(menuItem);
-        Debot.setVisibility(menu,true);
-        assertThat(menuItem.isVisible(),is(true));
+    public void showDebugMenu_show_when_no_menu_is_shown() {
+        AppCompatActivity activity = mock(AppCompatActivity.class);
+        when(activity.getSupportFragmentManager()).thenReturn(fragmentManager);
+        when(fragmentManager.findFragmentByTag("com.tomoima.debot.Debot")).thenReturn(null);
+        when(fragmentManager.executePendingTransactions()).thenReturn(true);
+        debot.showDebugMenu(activity);
+
+        verify(activity, times(1)).getSupportFragmentManager();
+        verify(fragmentManager, times(1)).executePendingTransactions();
     }
 
     @Test
-    public void testOnOptionsItemSelected_returnFalseIfGroupIdDoesNotMatch() {
+    public void showDebugMenu_does_not_show_menu_when_exists() {
+        AppCompatActivity activity = mock(AppCompatActivity.class);
+        Fragment fragment = mock(Fragment.class);
+        when(activity.getSupportFragmentManager()).thenReturn(fragmentManager);
+        when(fragmentManager.findFragmentByTag("com.tomoima.debot.Debot")).thenReturn(fragment);
 
-        MenuItem menuItem;
-        menuItem = mock(MenuItem.class);
-        when(menuItem.getItemId()).thenReturn(0);
-        when(menuItem.getGroupId()).thenReturn(1);
-        assertThat(debot.onOptionsItemSelected(menuItem),is(false));
+        debot.showDebugMenu(activity);
+
+        verify(activity, times(1)).getSupportFragmentManager();
+        verify(fragmentManager, times(0)).executePendingTransactions();
     }
 
     @Test
-    public void testOnOptionsItemSelected_returnTrueIfGroupIdDoesMatch(){
-        MenuItem menuItem;
-        menuItem = mock(MenuItem.class);
-        when(menuItem.getItemId()).thenReturn(0);
-        when(menuItem.getGroupId()).thenReturn(Integer.MAX_VALUE);
-        assertThat(debot.onOptionsItemSelected(menuItem),is(true));
+    public void dismissDebugMenu() {
+        Debot mockDebot = mock(Debot.class);
+        when(fragmentManager.findFragmentByTag("com.tomoima.debot.Debot")).thenReturn(mockDebot);
+        debot.dismissDebugMenu(fragmentManager);
+        verify(fragmentManager, times(1)).findFragmentByTag("com.tomoima.debot.Debot");
+        verify(mockDebot, times(1)).onDismiss(any(DialogInterface.class));
     }
 
 }

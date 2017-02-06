@@ -1,7 +1,6 @@
 package com.tomoima.debot;
 
-import android.app.Activity;
-import android.view.Menu;
+import android.support.v7.app.AppCompatActivity;
 
 public class Debot {
 
@@ -9,9 +8,17 @@ public class Debot {
         //Do nothing
     }
 
-    public static void getInstance(Activity activity){
+    public static Debot getInstance(){
+        return new Debot();
     }
 
-    public static void setVisibility(Menu menu, boolean isVisible){
+
+    public void showDebugMenu(AppCompatActivity activity) {
+
     }
+
+    public void dismissDebugMenu() {
+
+    }
+
 }
