@@ -2,7 +2,7 @@
 
     <application>
         <!--suppress AndroidDomInspection -->
-        <activity android:name=".testUtils.TestActivity" />
+        <activity android:name=".TestActivity" />
 
     </application>
 </manifest>
