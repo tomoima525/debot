@@ -1,100 +1,69 @@
 package com.tomoima.debot;
 
 
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.support.annotation.VisibleForTesting;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.content.Context;
+import android.hardware.SensorManager;
+import android.support.v4.app.FragmentActivity;
 
-import com.tomoima.debot.adapter.DebotMenuListAdapter;
-import com.tomoima.debot.strategy.DebotStrategy;
+import com.squareup.seismic.ShakeDetector;
 
-import java.util.ArrayList;
+import java.lang.ref.WeakReference;
 
-public class Debot extends DialogFragment {
-    private static final String TAG = "com.tomoima.debot.Debot";
-    private static final String STRATEGIES = "strategies";
-    private ArrayList<DebotStrategy> debotStrategyList;
+public class Debot {
+    private DebotDialog debotDialog;
+    private ShakeDetector sd;
+    private SensorManager sensorManager;
+    private WeakReference<FragmentActivity> activityWeakRef;
+    private boolean canShake;
 
-    public Debot(){
-        //Do nothing
+    private static Debot instance = new Debot();
+
+    private Debot(){
+        debotDialog = DebotDialog.getInstance();
     }
 
     public static Debot getInstance() {
-        Debot debot = new Debot();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(STRATEGIES, new DebotStrategies().getStrategies());
-        debot.setArguments(bundle);
-
-        return debot;
+        return instance;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        debotStrategyList = (ArrayList<DebotStrategy>) getArguments().getSerializable(STRATEGIES);
-        setCancelable(true);
-        onCancel(new DialogInterface() {
-            @Override
-            public void cancel() {
-                dismissDebugMenu();
-            }
-
-            @Override
-            public void dismiss() {
-                dismissDebugMenu();
-            }
-        });
+    public void allowShake(Context context) {
+        canShake = true;
+        setupSensor(context);
     }
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_debot, container);
-        ListView list = (ListView) view.findViewById(R.id.debug_menu_list);
-        DebotMenuListAdapter adapter = new DebotMenuListAdapter(getActivity(), debotStrategyList);
-        list.setAdapter(adapter);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                debotStrategyList.get(position).startAction(getActivity());
-                dismissDebugMenu();
-            }
-        });
-
-        return view;
-    }
-
-    public void showDebugMenu(AppCompatActivity activity) {
-        FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        if (fragmentManager != null) {
-            if (fragmentManager.findFragmentByTag(TAG) == null) {
-                show(fragmentManager, TAG);
-                fragmentManager.executePendingTransactions();
-            }
+    public void startSensor(FragmentActivity activity) {
+        if(!canShake) return;
+        activityWeakRef = new WeakReference<>(activity);
+        if(sd != null) {
+            sd.start(sensorManager);
         }
     }
 
-    public void dismissDebugMenu() {
-        if (getActivity() == null) return;
-        dismissDebugMenu(getActivity().getSupportFragmentManager());
-    }
-
-    @VisibleForTesting
-    void dismissDebugMenu(FragmentManager fragmentManager) {
-
-        Debot debot = (Debot) fragmentManager.findFragmentByTag(TAG);
-        if (debot != null) {
-            debot.onDismiss(getDialog());
+    public void stopSensor() {
+        if (!canShake) return;
+        if (activityWeakRef != null) {
+            activityWeakRef.clear();
+        }
+        if (sd != null) {
+            sd.stop();
         }
     }
 
+    public void showDebugMenu(FragmentActivity activity) {
+        debotDialog.showDebugMenu(activity);
+    }
+
+    private void setupSensor(Context context) {
+        sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        sd = new ShakeDetector(new ShakeDetector.Listener() {
+            @Override
+            public void hearShake() {
+                if(activityWeakRef.get() != null) {
+                    showDebugMenu(activityWeakRef.get());
+                }
+            }
+        });
+        sd.setSensitivity(ShakeDetector.SENSITIVITY_LIGHT);
+    }
 
 }
