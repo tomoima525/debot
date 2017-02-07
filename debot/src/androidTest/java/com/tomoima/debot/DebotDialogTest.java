@@ -26,7 +26,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(AndroidJUnit4.class)
-public class DebotTest {
+public class DebotDialogTest {
 
     @Rule
     public final ActivityTestRule<TestActivity> activityTestRule = new ActivityTestRule<>(TestActivity.class);
@@ -79,7 +79,7 @@ public class DebotTest {
 
     @Test
     public void dismissDebugMenu() {
-        Debot mockDebot = mock(Debot.class);
+        DebotDialog mockDebot = mock(DebotDialog.class);
         when(fragmentManager.findFragmentByTag("com.tomoima.debot.Debot")).thenReturn(mockDebot);
         debot.dismissDebugMenu(fragmentManager);
         verify(fragmentManager, times(1)).findFragmentByTag("com.tomoima.debot.Debot");

@@ -8,9 +8,9 @@ import java.util.concurrent.CountDownLatch;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 
-public class DebotTestUtils {
+class DebotTestUtils {
 
-    public static TestDebot getTestDebot(Activity activity){
+    static TestDebot getTestDebot(Activity activity){
         TestDebot debot = TestDebot.getInstance();
         getInstrumentation().waitForIdleSync();
         try {
@@ -34,7 +34,7 @@ public class DebotTestUtils {
         latch.await();
     }
 
-    public static class TestDebot extends Debot {
+    static class TestDebot extends DebotDialog {
 
         public static TestDebot getInstance() {
             return new TestDebot();

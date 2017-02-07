@@ -1,6 +1,7 @@
 package com.tomoima.debot;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 
 public class Debot {
 
@@ -13,12 +14,16 @@ public class Debot {
     }
 
 
-    public void showDebugMenu(AppCompatActivity activity) {
-
+    public void allowShake(Context context) {
     }
 
-    public void dismissDebugMenu() {
+    public void startSensor(FragmentActivity activity) {
+    }
 
+    public void stopSensor() {
+    }
+
+    public void showDebugMenu(FragmentActivity activity) {
     }
 
 }
