@@ -3,14 +3,17 @@
 [![Circle CI](https://circleci.com/gh/tomoima525/debot.svg?style=svg)](https://circleci.com/gh/tomoima525/debot)
 # Debot
 ![debot_logo.png](art/debot_logo.png)  
-A simple Android library to create Debugging menu.
+A simple Android library for Debugging menu.
 
-Debot offers features that are useful to debug Android applications. Those features can be added to any activity that has the toolbar menu. Also, developers can easily add their own custom debugging features with simple steps.
+Debot offers a customizable debug menu for Android app development. Developers can easily add their own custom debugging features with simple steps.
 
-![debot_4.gif](art/debot_4.gif)
+![debot_4.gif](art/debot_demo.gif)
+
+## How it works
+If you are using an emulator, just press `command + M`. If you are running your dev app on a real device, shake it. The debug menu dialog will show up.
 
 ## How it looks
-Once you setup Debot to your app, you will see couple of debugging features are added to your toolbar menu.
+By default, there are debug menus below.
 
 * Default debugging menu  
 ![debot-sample1.png](art/debot-sample1.png)
@@ -35,6 +38,7 @@ releaseCompile 'com.tomoima.debot:debot-no-op:{latest_version}'
 
 {latest_version} is now :[![Download](https://api.bintray.com/packages/tomoima525/maven/debot/images/download.svg) ](https://bintray.com/tomoima525/maven/debot/_latestVersion)
 
+Make sure you compile `debot-no-op` in the release build.
 
 ### Initialization
 1. Call `DebotConfigurator.configureWithDefault()` at the Application's `onCreate()` class.
@@ -53,29 +57,59 @@ public class MyApplication extends Application {
 
 ```java
 public class MainActivity extends AppCompatActivity{
+    Debot debot;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Debot.getInstance(this);
+        debot = Debot.getInstance();
     }
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_MENU) {
+            debot.showDebugMenu(this);
+        }
+        return super.onKeyUp(keyCode, event);
+    }
+
 }    
 ```
 
-That's it! Start your app and there will be the debugging menu added on the toolbar. 
+It is preferred to put these code in your BaseActivity if you have one.
+That's it!
 
-## Change Debot visibility
-
-In some cases, You don't want to show debugging menu. You can control the visibility of Debugging menu by just calling `Debot.setVisibility()` at `onPrepareOptionsMenu`  
+If you want the debug menu on a real device, add code below.
 
 ```java
-@Override
-public boolean onPrepareOptionsMenu(Menu menu) {
-    Debot.setVisibility(menu, menuVisibility);
-    return super.onPrepareOptionsMenu(menu);
+public class MainActivity extends AppCompatActivity{
+    Debot debot;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        debot = Debot.getInstance();
+    }
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_MENU) {
+            debot.showDebugMenu(this);
+        }
+        return super.onKeyUp(keyCode, event);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        debot.startSensor(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        debot.stopSensor();
+    }
 }
 ```
-
 
 See the [`debot-sample` project](debot-sample) for more details.
 
@@ -136,10 +170,13 @@ public class MyApplication extends Application {
 
 ```
 
+## Credit
+[seismic](https://github.com/square/seismic) - Square, Inc.
+
 ## License
 
 ```
-Tomoaki Imai 2016
+Tomoaki Imai 2017
 Licensed under the Apache License, Version 2.0 (the "License").
 You may obtain a copy of the License at
 
