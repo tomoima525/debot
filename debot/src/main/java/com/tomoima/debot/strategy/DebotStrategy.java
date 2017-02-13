@@ -4,7 +4,9 @@ package com.tomoima.debot.strategy;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 
-public abstract class DebotStrategy {
+import java.io.Serializable;
+
+public abstract class DebotStrategy implements Serializable {
 
     private String strategyMenuName;
 
