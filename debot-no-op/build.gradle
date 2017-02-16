@@ -33,7 +33,7 @@ android {
 }
 
 group = 'com.tomoima.debot'
-version = '2.0.1'
+version = '2.0.2'
 
 def siteUrl = 'https://github.com/tomoima525/debot'
 def gitUrl = 'https://github.com/tomoima525/debot.git'
