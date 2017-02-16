@@ -20,21 +20,15 @@ import java.util.ArrayList;
 
 public class DebotDialog extends DialogFragment {
     private static final String TAG = "com.tomoima.debot.Debot";
-    private static final String STRATEGIES = "strategies";
-    private ArrayList<DebotStrategy> debotStrategyList;
+    private ArrayList<DebotStrategy> debotStrategyList = new DebotStrategies().getStrategies();
 
     public static DebotDialog getInstance() {
-        DebotDialog debotDialog = new DebotDialog();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(STRATEGIES, new DebotStrategies().getStrategies());
-        debotDialog.setArguments(bundle);
-        return debotDialog;
+        return new DebotDialog();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        debotStrategyList = (ArrayList<DebotStrategy>) getArguments().getSerializable(STRATEGIES);
         setCancelable(true);
         onCancel(new DialogInterface() {
             @Override
