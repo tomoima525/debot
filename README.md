@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         debot = Debot.getInstance();
-        debot.allowShake(this);
+        debot.allowShake(getApplicationContext()); //Make sure to use Application context, or it will leak memory
     }
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
