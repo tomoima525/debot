@@ -33,7 +33,7 @@ public class MyApplication extends Application {
 //                .registerMenu("My debug feature", new MyCustomStrategy())
 //                .build();
 //        DebotConfigurator.configureWithCustomizedMenu(this, builder.getStrategyList());
-        DebotConfigurator.configureWithDefault(this);
+        DebotConfigurator.configureWithDefault();
     }
 
     /**
