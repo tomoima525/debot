@@ -6,11 +6,7 @@ import java.util.*
 class DebotStrategyBuilder internal constructor(val strategyList: ArrayList<DebotStrategy>) {
 
     class Builder {
-        private var strategyList: ArrayList<DebotStrategy>
-
-        init {
-            strategyList = ArrayList<DebotStrategy>()
-        }
+        private var strategyList: ArrayList<DebotStrategy> = ArrayList()
 
         fun registerMenu(strategyName: String, strategy: DebotStrategy): Builder {
             strategy.strategyMenuName = strategyName
