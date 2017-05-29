@@ -1,6 +1,5 @@
 package com.tomoima.debot
 
-import android.content.Context
 import com.tomoima.debot.strategy.*
 import java.util.*
 
@@ -10,8 +9,7 @@ object DebotConfigurator {
         DebotStrategies.initialize(createDefaultMenuConfig())
     }
 
-    @JvmStatic fun configureWithCustomizedMenu(customList:
-    ArrayList<DebotStrategy>) {
+    @JvmStatic fun configureWithCustomizedMenu(customList: ArrayList<DebotStrategy>) {
         val registerList = createDefaultMenuConfig()
         registerList.addAll(customList)
         DebotStrategies.initialize(registerList)

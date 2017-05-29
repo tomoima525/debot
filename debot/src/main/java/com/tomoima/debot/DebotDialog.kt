@@ -13,7 +13,7 @@ import android.widget.AdapterView
 import android.widget.ListView
 import com.tomoima.debot.adapter.DebotMenuListAdapter
 
-
+// This class allows others to inherit
 open class DebotDialog : DialogFragment() {
     private val TAG = "com.tomoima.debot.Debot"
     private val debotStrategyList = DebotStrategies.get()
@@ -60,9 +60,9 @@ open class DebotDialog : DialogFragment() {
     }
 
     @VisibleForTesting
-    internal fun dismissDebugMenu(fragmentManager: FragmentManager) {
+    fun dismissDebugMenu(fragmentManager: FragmentManager) {
 
-        val debotDialog : DebotDialog? = fragmentManager.findFragmentByTag(TAG) as DebotDialog
+        val debotDialog: DebotDialog? = fragmentManager.findFragmentByTag(TAG) as DebotDialog
         debotDialog?.onDismiss(dialog)
     }
 
