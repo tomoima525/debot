@@ -22,7 +22,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:25.1.0'
-    compile project(':debot')
+    //compile project(':debot')
     // Replace with debot-no-op for looking no-op sample
-    //compile project(':debot-no-op')
+    compile project(':debot-no-op')
 }
