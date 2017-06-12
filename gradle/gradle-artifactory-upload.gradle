@@ -9,8 +9,8 @@ artifactory {
                     'oss-release-local'
             //username = System.getenv('bintrayUser') // The publisher user name
             //password = System.getenv('bintrayKey') // The publisher password
-            username = BINTRAY_USER
-            password = BINTRAY_KEY
+            username = System.getenv('CI') ? System.getenv('BINTRAY_USER') : BINTRAY_USER
+            password = System.getenv('CI') ? System.getenv('BINTRAY_KEY') : BINTRAY_KEY
             maven = true
         }
         defaults {
