@@ -56,7 +56,7 @@ open class DebotDialog : DialogFragment() {
     }
 
     fun dismissDebugMenu() {
-        activity.let { dismissDebugMenu(it.supportFragmentManager) }
+        activity?.let { dismissDebugMenu(it.supportFragmentManager) }
     }
 
     @VisibleForTesting
