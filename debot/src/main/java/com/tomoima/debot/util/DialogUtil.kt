@@ -4,12 +4,13 @@ import android.app.Activity
 import android.app.AlertDialog
 
 object DialogUtil {
-    fun showDialog(activity: Activity, title: String, message: String) {
+    fun showDialog(activity: Activity, title: String?, message: String?) {
         val alertDialogBuilder = AlertDialog.Builder(activity)
-        if (!StringUtil.isBlankOrNull(title)) {
+
+        if (!title.isNullOrBlank()) {
             alertDialogBuilder.setTitle(title)
         }
-        if (!StringUtil.isBlankOrNull(message)) {
+        if (!message.isNullOrBlank()) {
             alertDialogBuilder.setMessage(message)
         }
         alertDialogBuilder.setPositiveButton(android.R.string.ok) { dialog, _ -> dialog.dismiss() }
