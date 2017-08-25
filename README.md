@@ -5,7 +5,7 @@
 ![debot_logo.png](art/debot_logo.png)  
 A simple Android library for Debugging menu.
 
-Debot offers a customizable debug menu for Android app development. Developers can easily add their own custom debugging features with simple steps.
+Debot offers a customizable debug menu for Android app development. It does not affect production code. Developers can easily add their own custom debugging features with simple steps.
 
 ![debot_4.gif](art/debot_demo.gif)
 
@@ -135,10 +135,10 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        DebotStrategyBuilder builder = new DebotStrategyBuilder.Builder(context)
+        DebotStrategyBuilder builder = new DebotStrategyBuilder.Builder()
                 .registerMenu("My debug feature", new MyDebotStrategy())
                 .build();
-        DebotConfigurator.configureWithCustomizeMenu(this, builder.getStrategyList());
+        DebotConfigurator.configureWithCustomizeMenu(builder.getStrategyList());
     }
 }
 ```
@@ -162,7 +162,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        DebotStrategyBuilder builder = new DebotStrategyBuilder.Builder(context)
+        DebotStrategyBuilder builder = new DebotStrategyBuilder.Builder()
                 .registerMenu("input", new DebotCallActivityMethodStrategy("debugInput"))
                 .build();
         DebotConfigurator.configureWithCustomizeMenu(this, builder.getStrategyList());
@@ -170,6 +170,29 @@ public class MyApplication extends Application {
 }
 
 ```
+
+
+## Usage with Kotlin project
+You don't have to change any code with Kotlin project. However, you might see 
+`kotlin-stdlib` error when you include Debot into your project. 
+
+```
+Error:Conflict with dependency 'org.jetbrains.kotlin:kotlin-stdlib' in project ':app'. Resolved versions for app (1.0.2) and test app (1.1.2-4) differ. See http://g.co/androidstudio/app-test-app-conflict for 
+details.
+```
+
+In that case, you should setup `stdlib` dependency explicitly.
+In your project's `build.gradle` file, add the line below:
+```
+ configurations.all {
+     resolutionStrategy {
+         force 'org.jetbrains.kotlin:kotlin-stdlib:{whatever the version of Kotlin you are using}'
+     }
+ }
+```
+
+See details here: https://github.com/nhaarman/mockito-kotlin/issues/146
+
 
 ## Credit
 [seismic](https://github.com/square/seismic) - Square, Inc.
