@@ -1,9 +1,6 @@
-plugins {
-    id "com.github.dcendents.android-maven" version "1.5"
-    id "com.jfrog.bintray" version "1.7.3"
-}
-
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 25
@@ -32,61 +29,18 @@ android {
     }
 }
 
-group = 'com.tomoima.debot'
-version = '2.0.2'
-
 def siteUrl = 'https://github.com/tomoima525/debot'
-def gitUrl = 'https://github.com/tomoima525/debot.git'
 
-bintray {
-    user = bintrayUserProperty
-    key = bintrayApiKeyProperty
-
-    configurations = ['archives']
-    pkg {
-        repo = 'maven'
-        name = 'debot-no-op'
-        vcsUrl = gitUrl
-        desc = 'A simple Android library to create Debugging menu.'
-        issueTrackerUrl = 'https://github.com/tomoima525/debot/issues'
-        licenses = ['Apache-2.0']
-        vcsUrl = gitUrl
-        labels = ['android']
-        publicDownloadNumbers = true
-
-    }
-
-}
-
-install {
-    repositories.mavenInstaller {
-        pom {
-            project {
-                packaging 'aar'
-                name 'debot-no-op'
-                url siteUrl
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id 'tomoima525'
-                        name 'Tomoaki Imai'
-                        email 'tomoima525@gmail.com'
-                    }
-                }
-                scm {
-                    connection 'https://github.com/tomoima525/debot.git'
-                    developerConnection 'https://github.com/tomoima525/debot.git'
-                    url siteUrl
-
-                }
-            }
-        }
-    }
+publish {
+    userOrg = 'tomoima525'
+    groupId  = 'com.tomoima.debot'
+    artifactId = 'debot-no-op'
+    bintrayUser = bintrayUserProperty
+    bintrayKey = bintrayApiKeyProperty
+    version =  library_version
+    desc = 'A simple Android library to create Debugging menu.'
+    website = siteUrl
+    licences = ['Apache-2.0']
 }
 
 def getBintrayUserProperty() {
@@ -97,37 +51,13 @@ def getBintrayApiKeyProperty() {
     return hasProperty('BINTRAY_KEY') ? BINTRAY_KEY : ""
 }
 
-
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-
-afterEvaluate {
-    javadoc.classpath += files(android.libraryVariants.collect { variant ->
-        variant.javaCompile.classpath.files
-    })
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
-
-task findConventions << {
-    println project.getConvention()
+tasks.withType(Javadoc) {
+    enabled = false
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:25.3.1'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
+apply from: rootProject.file('gradle/gradle-artifactory-upload.gradle')
