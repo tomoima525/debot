@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 27
@@ -59,4 +60,16 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$versions.supportLibrary"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId "com.tomoima.debot"
+            artifactId "debot-no-op"
+            version "$library_version"
+            artifact("$buildDir/outputs/aar/$artifactId-release.aar")
+        }
+    }
+}
+
 apply from: rootProject.file('gradle/gradle-artifactory-upload.gradle')
