@@ -36,22 +36,25 @@ open class DebotDialog : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_debot, container)
         val list = view.findViewById(R.id.debug_menu_list) as ListView
-        val adapter = DebotMenuListAdapter(activity, debotStrategyList)
-        list.adapter = adapter
-        list.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            debotStrategyList[position].startAction(activity)
-            dismissDebugMenu()
+        activity?.let {
+            val adapter = DebotMenuListAdapter(it, debotStrategyList)
+            list.adapter = adapter
+            list.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+                debotStrategyList[position].startAction(it)
+                dismissDebugMenu()
+            }
         }
+
 
         return view
     }
 
 
     fun showDebugMenu(activity: FragmentActivity?) {
-        val fragmentManager = activity?.supportFragmentManager as? FragmentManager
-        if (fragmentManager != null && fragmentManager.findFragmentByTag(TAG) == null) {
+        val fragmentManager = activity?.supportFragmentManager
+        if (fragmentManager?.findFragmentByTag(TAG) == null) {
                 show(fragmentManager, TAG)
-                fragmentManager.executePendingTransactions()
+                fragmentManager?.executePendingTransactions()
         }
     }
 
