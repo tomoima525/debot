@@ -28,4 +28,9 @@ jobs:
           destination: reports
       - store_test_results:
           path: app/build/test-results
-
+      - run:
+          name: Build
+          command: ./gradlew --offline --stacktrace assemble
+      - run:
+          name: Deploy to SNAPSHOT artifactory
+          command: ./gradlew artifactoryPublish

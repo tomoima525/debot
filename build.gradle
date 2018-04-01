@@ -2,13 +2,10 @@
 apply from: 'dependencies.gradle'
 buildscript {
     ext.kotlin_version = '1.2.31'
-    ext.library_version = '2.0.4-SNAPSHOT'
+    ext.library_version = System.getenv('CI') ? "2.0.4-SNAPSHOT" : '2.0.3'
     repositories {
         jcenter()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+        google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.0'
@@ -23,9 +20,6 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+        google()
     }
 }
