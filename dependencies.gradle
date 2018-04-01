@@ -1,0 +1,13 @@
+ext.versions = [
+
+        supportLibrary : '27.1.0',
+        androidKtx : '0.2',
+        seismic : '1.0.2',
+        junit : '4.12',
+        testRunner: '1.0.1',
+        espressoCore : '3.0.1',
+        hamcrest : '1.3',
+        mockitoCore : '2.7.21',
+        dexmakerMokito : '2.2.0',
+        mockitoKotlin : '1.5.0'
+]
