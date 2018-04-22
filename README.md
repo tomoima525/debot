@@ -194,13 +194,42 @@ In your project's `build.gradle` file, add the line below:
 See details here: https://github.com/nhaarman/mockito-kotlin/issues/146
 
 
+## Snapshot
+If you want to use the snapshot version of the library, simply add below to your `app/build.gradle`
+
+```
+repositories {
+    ...
+    maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' } // For Debot snapshot
+    ...
+}
+
+dependencies {
+   debugImplementations 'com.tomoima.debot:debot:2.0.X-SNAPSHOT'
+   releaseImplementations 'com.tomoima.debot:debot-no-op:2.0.X-SNAPSHOT'
+}
+```
+
+## Avoiding Support library conflict
+If you want to stick to your support library version, just exclude it from debot.
+
+```
+debugImplementation("com.tomoima.debot:debot:x.x.x") {
+    exclude group: "com.android.support"
+}
+releaseImplementation("com.tomoima.debot:debot-no-op:x.x.x") {
+    exclude group: "com.android.support"
+}
+```
+
+
 ## Credit
 [seismic](https://github.com/square/seismic) - Square, Inc.
 
 ## License
 
 ```
-Tomoaki Imai 2017
+Tomoaki Imai 2018
 Licensed under the Apache License, Version 2.0 (the "License").
 You may obtain a copy of the License at
 

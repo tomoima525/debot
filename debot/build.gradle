@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.novoda.bintray-release'
-
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 27
@@ -75,6 +75,19 @@ tasks.withType(Javadoc) {
 
 repositories {
     mavenCentral()
+}
+
+
+// For JFrog artifactory upload
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId 'com.tomoima.debot'
+            artifactId 'debot'
+            version "$library_version"
+            artifact("$buildDir/outputs/aar/$artifactId-release.aar")
+        }
+    }
 }
 
 apply from: rootProject.file('gradle/gradle-artifactory-upload.gradle')
