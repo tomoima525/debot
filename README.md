@@ -48,7 +48,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        DebotConfigurator.configureWithDefault(this);
+        DebotConfigurator.configureWithDefault();
     }
 }
 ```
@@ -127,7 +127,7 @@ public class MyDebotStrategy extends DebotStrategy{
 }
 ```
 
-Then, at the Application class, call `Debot.configureWithCustomizeMenu()`
+Then, at the Application class, call `Debot.configureWithCustomizedMenu()`
 
 
 ```java
@@ -138,7 +138,7 @@ public class MyApplication extends Application {
         DebotStrategyBuilder builder = new DebotStrategyBuilder.Builder()
                 .registerMenu("My debug feature", new MyDebotStrategy())
                 .build();
-        DebotConfigurator.configureWithCustomizeMenu(builder.getStrategyList());
+        DebotConfigurator.configureWithCustomizedMenu(builder.getStrategyList());
     }
 }
 ```
@@ -165,7 +165,7 @@ public class MyApplication extends Application {
         DebotStrategyBuilder builder = new DebotStrategyBuilder.Builder()
                 .registerMenu("input", new DebotCallActivityMethodStrategy("debugInput"))
                 .build();
-        DebotConfigurator.configureWithCustomizeMenu(this, builder.getStrategyList());
+        DebotConfigurator.configureWithCustomizedMenu(builder.getStrategyList());
     }
 }
 
