@@ -10,7 +10,6 @@ import com.squareup.seismic.ShakeDetector
 import java.lang.ref.WeakReference
 
 class Debot private constructor() {
-    private val debotDialog: DebotDialog = DebotDialog.get()
     private var sd: ShakeDetector? = null
     private var sensorManager: SensorManager? = null
     private var activityWeakRef: WeakReference<FragmentActivity>? = null
@@ -34,7 +33,7 @@ class Debot private constructor() {
     }
 
     fun showDebugMenu(activity: FragmentActivity?) {
-        debotDialog.showDebugMenu(activity)
+        DebotDialog.get().showDebugMenu(activity)
     }
 
     private fun setupSensor(context: Context) {
