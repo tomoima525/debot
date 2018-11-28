@@ -52,20 +52,12 @@ publish {
     userOrg = 'tomoima525'
     groupId  = 'com.tomoima.debot'
     artifactId = 'debot'
-    bintrayUser = bintrayUserProperty
-    bintrayKey = bintrayApiKeyProperty
-    version =  library_version
+    bintrayUser = bintray_user
+    bintrayKey = bintray_key
+    publishVersion =  library_version
     desc = 'A simple Android library to create Debugging menu.'
     website = siteUrl
     licences = ['Apache-2.0']
-}
-
-def getBintrayUserProperty() {
-    return hasProperty('BINTRAY_USER') ? BINTRAY_USER : ""
-}
-
-def getBintrayApiKeyProperty() {
-    return hasProperty('BINTRAY_KEY') ? BINTRAY_KEY : ""
 }
 
 // Avoid Kotlin docs error
