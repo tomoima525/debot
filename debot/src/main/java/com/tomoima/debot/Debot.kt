@@ -3,7 +3,7 @@ package com.tomoima.debot
 
 import android.content.Context
 import android.hardware.SensorManager
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
 
 import com.squareup.seismic.ShakeDetector
 
@@ -23,7 +23,7 @@ class Debot private constructor() {
     fun startSensor(activity: FragmentActivity) {
         if (!canShake) return
         activityWeakRef = WeakReference(activity)
-        sd?.start(sensorManager);
+        sd?.start(sensorManager)
     }
 
     fun stopSensor() {
@@ -32,14 +32,14 @@ class Debot private constructor() {
         sd?.stop()
     }
 
-    fun showDebugMenu(activity: FragmentActivity?) {
+    fun showDebugMenu(activity: FragmentActivity) {
         DebotDialog.get().showDebugMenu(activity)
     }
 
     private fun setupSensor(context: Context) {
         sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sd = ShakeDetector(ShakeDetector.Listener {
-            showDebugMenu(activityWeakRef?.get())
+            activityWeakRef?.get()?.let(::showDebugMenu)
         })
         sd?.setSensitivity(ShakeDetector.SENSITIVITY_LIGHT)
     }

@@ -3,7 +3,7 @@ package com.tomoima.debot.sample.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.View;
 
 import com.tomoima.debot.sample.MyApplication;
