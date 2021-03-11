@@ -4,11 +4,11 @@ apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'maven-publish'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
     }
@@ -49,7 +49,7 @@ tasks.withType(Javadoc) {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:appcompat-v7:$versions.supportLibrary"
+    implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 

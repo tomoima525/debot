@@ -2,10 +2,9 @@ package com.tomoima.debot
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.support.annotation.VisibleForTesting
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
+import androidx.annotation.VisibleForTesting
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,7 @@ import android.widget.ListView
 import com.tomoima.debot.adapter.DebotMenuListAdapter
 
 // This class allows others to inherit
-open class DebotDialog : DialogFragment() {
+open class DebotDialog : androidx.fragment.app.DialogFragment() {
     private val TAG = "com.tomoima.debot.Debot"
     private val debotStrategyList = DebotStrategies.get()
 
@@ -50,11 +49,11 @@ open class DebotDialog : DialogFragment() {
     }
 
 
-    fun showDebugMenu(activity: FragmentActivity?) {
-        val fragmentManager = activity?.supportFragmentManager
-        if (fragmentManager?.findFragmentByTag(TAG) == null) {
+    fun showDebugMenu(activity: FragmentActivity) {
+        val fragmentManager = activity.supportFragmentManager
+        if (fragmentManager.findFragmentByTag(TAG) == null) {
                 show(fragmentManager, TAG)
-                fragmentManager?.executePendingTransactions()
+                fragmentManager.executePendingTransactions()
         }
     }
 
@@ -65,8 +64,8 @@ open class DebotDialog : DialogFragment() {
     @VisibleForTesting
     fun dismissDebugMenu(fragmentManager: FragmentManager) {
 
-        val debotDialog: DebotDialog? = fragmentManager.findFragmentByTag(TAG) as DebotDialog
-        debotDialog?.onDismiss(dialog)
+        val debotDialog = fragmentManager.findFragmentByTag(TAG) as? DebotDialog ?: return
+        dialog?.let(debotDialog::onDismiss)
     }
 
     companion object {

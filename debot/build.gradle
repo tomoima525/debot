@@ -4,14 +4,14 @@ apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'maven-publish'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
         release {
@@ -32,11 +32,11 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:appcompat-v7:$versions.supportLibrary"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation "com.squareup:seismic:$versions.seismic"
 
-    androidTestImplementation "com.android.support.test:runner:$versions.testRunner"
-    androidTestImplementation "com.android.support.test:rules:$versions.testRunner"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test:rules:1.1.1'
     androidTestImplementation "org.hamcrest:hamcrest-library:$versions.hamcrest"
     androidTestImplementation("org.mockito:mockito-core:$versions.mockitoCore") {
         exclude group: 'org.hamcrest', module: 'hamcrest-core'

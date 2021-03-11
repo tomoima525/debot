@@ -3,11 +3,11 @@ package com.tomoima.debot
 
 import android.app.Activity
 import android.app.Dialog
-import android.support.test.rule.ActivityTestRule
-import android.support.test.runner.AndroidJUnit4
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v7.app.AppCompatActivity
+import androidx.test.rule.ActivityTestRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.appcompat.app.AppCompatActivity
 import com.nhaarman.mockito_kotlin.whenever
 import com.tomoima.debot.strategy.DebotStrategy
 import org.junit.Before

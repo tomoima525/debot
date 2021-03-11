@@ -2,7 +2,7 @@ package com.tomoima.debot.strategy;
 
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 
 public class DebotCallActivityMethodStrategy extends DebotStrategy{
