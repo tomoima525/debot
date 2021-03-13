@@ -29,7 +29,7 @@ class ShowActivityInfoStrategy : DebotStrategy() {
                     put(data, key, str)
                 }
             } else {
-                put(data, key, value)
+                value?.let { put(data, key, it) }
             }
         }
         return data
