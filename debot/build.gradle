@@ -30,7 +30,6 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation "com.squareup:seismic:$versions.seismic"
 
@@ -44,15 +43,6 @@ dependencies {
     androidTestImplementation "org.mockito.kotlin:mockito-kotlin:$versions.mockitoKotlin"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
-
-tasks.withType(Javadoc) {
-    enabled = false
-}
-
-repositories {
-    mavenCentral()
-}
-
 
 afterEvaluate {
     publishing {
