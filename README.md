@@ -1,4 +1,3 @@
-[![Download](https://api.bintray.com/packages/tomoima525/maven/debot/images/download.svg) ](https://bintray.com/tomoima525/maven/debot/_latestVersion)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Debot-green.svg?style=flat)](https://android-arsenal.com/details/1/2562)
 [![Circle CI](https://circleci.com/gh/tomoima525/debot.svg?style=svg)](https://circleci.com/gh/tomoima525/debot)
 # Debot
@@ -29,14 +28,25 @@ By default, there are debug menus below.
 
 ## Setup
 ### Download
+
+**NOTE:**
+* Debot is provided by JitPack from version 2.0.7. The groupId is changed to `com.github.tomoima525.debot` from this version.
+
 Grab Debot from Gradle:
 
-```groovy
-debugCompile 'com.tomoima.debot:debot:{latest_version}'
-releaseCompile 'com.tomoima.debot:debot-no-op:{latest_version}'
-```
+```kotlin
+allprojects {
+    repositories {
+        // ...
+        maven("https://jitpack.io")
+    }
+}
 
-{latest_version} is now :[![Download](https://api.bintray.com/packages/tomoima525/maven/debot/images/download.svg) ](https://bintray.com/tomoima525/maven/debot/_latestVersion)
+dependencies {
+    debugImplementation("com.github.tomoima525.debot:debot:{latest_version}")
+    releaseImplementation("com.github.tomoima525.debot:debot-no-op:{latest_version}")
+}
+```
 
 Make sure you compile `debot-no-op` in the release build.
 
@@ -192,23 +202,6 @@ In your project's `build.gradle` file, add the line below:
 ```
 
 See details here: https://github.com/nhaarman/mockito-kotlin/issues/146
-
-
-## Snapshot
-If you want to use the snapshot version of the library, simply add below to your `app/build.gradle`
-
-```
-repositories {
-    ...
-    maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' } // For Debot snapshot
-    ...
-}
-
-dependencies {
-   debugImplementations 'com.tomoima.debot:debot:2.0.X-SNAPSHOT'
-   releaseImplementations 'com.tomoima.debot:debot-no-op:2.0.X-SNAPSHOT'
-}
-```
 
 ## Avoiding Support library conflict
 If you want to stick to your support library version, just exclude it from debot.
