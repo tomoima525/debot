@@ -203,19 +203,6 @@ In your project's `build.gradle` file, add the line below:
 
 See details here: https://github.com/nhaarman/mockito-kotlin/issues/146
 
-## Avoiding Support library conflict
-If you want to stick to your support library version, just exclude it from debot.
-
-```
-debugImplementation("com.tomoima.debot:debot:x.x.x") {
-    exclude group: "com.android.support"
-}
-releaseImplementation("com.tomoima.debot:debot-no-op:x.x.x") {
-    exclude group: "com.android.support"
-}
-```
-
-
 ## Credit
 [seismic](https://github.com/square/seismic) - Square, Inc.
 
