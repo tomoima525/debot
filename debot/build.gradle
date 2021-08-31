@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-//apply plugin: 'com.github.panpf.bintray-publish'
 apply plugin: 'maven-publish'
 
 android {
@@ -46,23 +45,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
-def siteUrl = 'https://github.com/tomoima525/debot'
-
-/*
-publish {
-    userOrg = 'tomoima525'
-    groupId  = 'com.tomoima.debot'
-    artifactId = 'debot'
-    bintrayUser = bintray_user
-    bintrayKey = bintray_key
-    publishVersion =  library_version
-    desc = 'A simple Android library to create Debugging menu.'
-    website = siteUrl
-    licences = ['Apache-2.0']
-}
- */
-
-// Avoid Kotlin docs error
 tasks.withType(Javadoc) {
     enabled = false
 }
@@ -72,7 +54,6 @@ repositories {
 }
 
 
-// For JFrog artifactory upload
 afterEvaluate {
     publishing {
         publications {
@@ -85,5 +66,3 @@ afterEvaluate {
         }
     }
 }
-
-//apply from: rootProject.file('gradle/gradle-artifactory-upload.gradle')
