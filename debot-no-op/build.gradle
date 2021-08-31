@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-//apply plugin: 'com.github.panpf.bintray-publish'
 apply plugin: 'maven-publish'
 
 android {
@@ -29,22 +28,6 @@ android {
     }
 }
 
-def siteUrl = 'https://github.com/tomoima525/debot'
-
-/*
-publish {
-    userOrg = 'tomoima525'
-    groupId  = 'com.tomoima.debot'
-    artifactId = 'debot-no-op'
-    bintrayUser = bintray_user
-    bintrayKey = bintray_key
-    publishVersion =  library_version
-    desc = 'A simple Android library to create Debugging menu.'
-    website = siteUrl
-    licences = ['Apache-2.0']
-}
- */
-
 tasks.withType(Javadoc) {
     enabled = false
 }
@@ -67,5 +50,3 @@ afterEvaluate {
         }
     }
 }
-
-//apply from: rootProject.file('gradle/gradle-artifactory-upload.gradle')
