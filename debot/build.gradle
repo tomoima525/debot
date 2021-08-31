@@ -73,13 +73,15 @@ repositories {
 
 
 // For JFrog artifactory upload
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId 'com.tomoima.debot'
-            artifactId 'debot'
-            version "$library_version"
-            artifact("$buildDir/outputs/aar/$artifactId-release.aar")
+afterEvaluate {
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                from components.release
+                groupId 'com.tomoima.debot'
+                artifactId 'debot'
+                version "$library_version"
+            }
         }
     }
 }
