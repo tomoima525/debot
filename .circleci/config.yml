@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/code
     docker:
-      - image: circleci/android:api-29
+      - image: circleci/android:api-30
     environment:
       JVM_OPTS: -Xmx3200m
     steps:
@@ -22,15 +22,9 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "debot/build.gradle" }}
       - run:
           name: Run Tests
-          command: ./gradlew lint test
+          command: ./gradlew :debot:lint :debot-no-op:lint :debot:test :debot-no-op:test
       - store_artifacts:
           path: app/build/reports
           destination: reports
       - store_test_results:
           path: app/build/test-results
-      - run:
-          name: Build
-          command: ./gradlew --offline --stacktrace assemble
-      - run:
-          name: Deploy to SNAPSHOT artifactory
-          command: ./gradlew artifactoryPublish
