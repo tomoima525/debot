@@ -7,8 +7,8 @@ buildscript {
     ext.bintray_user = project.hasProperty("BINTRAY_USER") ? BINTRAY_USER : ""
     ext.bintray_key = project.hasProperty('BINTRAY_KEY') ? BINTRAY_KEY : ""
     repositories {
-        jcenter()
         google()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.1'
@@ -24,7 +24,7 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
         google()
+        mavenCentral()
     }
 }
