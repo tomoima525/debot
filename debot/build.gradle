@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.github.panpf.bintray-publish'
+//apply plugin: 'com.github.panpf.bintray-publish'
 apply plugin: 'maven-publish'
 
 android {
@@ -48,6 +48,7 @@ dependencies {
 
 def siteUrl = 'https://github.com/tomoima525/debot'
 
+/*
 publish {
     userOrg = 'tomoima525'
     groupId  = 'com.tomoima.debot'
@@ -59,6 +60,7 @@ publish {
     website = siteUrl
     licences = ['Apache-2.0']
 }
+ */
 
 // Avoid Kotlin docs error
 tasks.withType(Javadoc) {
@@ -82,4 +84,4 @@ publishing {
     }
 }
 
-apply from: rootProject.file('gradle/gradle-artifactory-upload.gradle')
+//apply from: rootProject.file('gradle/gradle-artifactory-upload.gradle')
