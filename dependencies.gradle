@@ -1,5 +1,4 @@
 ext.versions = [
-
         supportLibrary : '27.1.0',
         androidKtx : '0.2',
         seismic : '1.0.2',
