@@ -3,7 +3,7 @@ apply from: 'dependencies.gradle'
 
 buildscript {
     ext.kotlin_version = '1.4.31'
-    ext.library_version = System.getenv('CI') ? "2.0.7-SNAPSHOT" : '2.0.6'
+    ext.library_version = "2.0.7"
     ext.bintray_user = project.hasProperty("BINTRAY_USER") ? BINTRAY_USER : ""
     ext.bintray_key = project.hasProperty('BINTRAY_KEY') ? BINTRAY_KEY : ""
     repositories {
