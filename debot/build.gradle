@@ -78,7 +78,7 @@ afterEvaluate {
         publications {
             maven(MavenPublication) {
                 from components.release
-                groupId 'com.tomoima.debot'
+                groupId 'com.github.tomoima525.debot'
                 artifactId 'debot'
                 version "$library_version"
             }
