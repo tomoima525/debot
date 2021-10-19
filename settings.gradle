@@ -1,1 +1,4 @@
-include ':debot-sample', ':debot', ':debot-no-op'
+include ':debot', ':debot-no-op'
+if (!System.getenv().containsKey("JITPACK")) {
+    include ':debot-sample'
+}
