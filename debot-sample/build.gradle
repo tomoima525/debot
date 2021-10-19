@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "com.tomoima.debot.sample"
         minSdkVersion 16
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
     }
@@ -21,8 +21,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation "com.github.tomoima525.debot:debot:$library_version"
-    //implementation project(':debot')
+    // implementation "com.github.tomoima525.debot:debot:$library_version"
+    implementation project(':debot')
     // Replace with debot-no-op for looking no-op sample
     //compile project(':debot-no-op')
 }
