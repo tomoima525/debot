@@ -19,8 +19,8 @@ android {
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation "com.github.tomoima525.debot:debot:$library_version"
-    //implementation project(':debot')
+    // implementation "com.github.tomoima525.debot:debot:$library_version"
+    implementation project(':debot')
     // Replace with debot-no-op for looking no-op sample
     //compile project(':debot-no-op')
 }
