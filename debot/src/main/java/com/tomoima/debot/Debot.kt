@@ -20,10 +20,10 @@ class Debot private constructor() {
         setupSensor(context)
     }
 
-    fun startSensor(activity: FragmentActivity) {
+    fun startSensor(activity: FragmentActivity, sensorDelay: Int) {
         if (!canShake) return
         activityWeakRef = WeakReference(activity)
-        sd?.start(sensorManager)
+        sd?.start(sensorManager, sensorDelay)
     }
 
     fun stopSensor() {

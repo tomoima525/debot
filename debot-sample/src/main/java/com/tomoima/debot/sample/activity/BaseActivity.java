@@ -1,5 +1,6 @@
 package com.tomoima.debot.sample.activity;
 
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        debot.startSensor(this);
+        debot.startSensor(this, SensorManager.SENSOR_DELAY_GAME);
     }
 
     @Override
