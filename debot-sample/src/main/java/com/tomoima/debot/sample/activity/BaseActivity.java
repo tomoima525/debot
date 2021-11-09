@@ -22,7 +22,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        debot.startSensor(this, SensorManager.SENSOR_DELAY_GAME);
+        debot.startSensor(this);
     }
 
     @Override
