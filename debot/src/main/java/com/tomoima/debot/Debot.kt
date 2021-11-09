@@ -20,7 +20,8 @@ class Debot private constructor() {
         setupSensor(context)
     }
 
-    fun startSensor(activity: FragmentActivity, sensorDelay: Int) {
+    @JvmOverloads
+    fun startSensor(activity: FragmentActivity, sensorDelay: Int = 0) {
         if (!canShake) return
         activityWeakRef = WeakReference(activity)
         sd?.start(sensorManager, sensorDelay)

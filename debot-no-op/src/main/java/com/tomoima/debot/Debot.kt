@@ -8,7 +8,8 @@ class Debot private constructor()//Do nothing
 
     fun allowShake(context: Context) {}
 
-    fun startSensor(activity: FragmentActivity, sensorDelay: Int) {}
+    @JvmOverloads
+    fun startSensor(activity: FragmentActivity, sensorDelay: Int = 0) {}
 
     fun stopSensor() {}
 
