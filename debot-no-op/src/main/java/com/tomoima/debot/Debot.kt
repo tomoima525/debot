@@ -8,7 +8,7 @@ class Debot private constructor()//Do nothing
 
     fun allowShake(context: Context) {}
 
-    fun startSensor(activity: FragmentActivity) {}
+    fun startSensor(activity: FragmentActivity, sensorDelay: Int) {}
 
     fun stopSensor() {}
 
