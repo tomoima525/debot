@@ -1,5 +1,6 @@
 package com.tomoima.debot.sample.activity;
 
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
