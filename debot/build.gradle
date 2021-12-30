@@ -1,16 +1,12 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-//apply plugin: 'com.github.panpf.bintray-publish'
 apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 31
-
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 31
-        versionCode 1
-        versionName "1.0"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
@@ -19,60 +15,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    compileOptions {
-        encoding = 'UTF-8'
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
     packagingOptions {
         exclude 'LICENSE.txt'
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation "com.squareup:seismic:$versions.seismic"
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation "com.squareup:seismic:1.0.3"
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test:rules:1.1.1'
-    androidTestImplementation "org.hamcrest:hamcrest-library:$versions.hamcrest"
-    androidTestImplementation("org.mockito:mockito-core:$versions.mockitoCore") {
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test:rules:1.4.0'
+    androidTestImplementation "org.hamcrest:hamcrest-library:1.3"
+    androidTestImplementation("org.mockito:mockito-core:3.9.0") {
         exclude group: 'org.hamcrest', module: 'hamcrest-core'
     }
-    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$versions.dexmakerMokito"
-    androidTestImplementation "org.mockito.kotlin:mockito-kotlin:$versions.mockitoKotlin"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:2.28.1"
+    androidTestImplementation "org.mockito.kotlin:mockito-kotlin:3.2.0"
 }
 
-def siteUrl = 'https://github.com/tomoima525/debot'
-
-/*
-publish {
-    userOrg = 'tomoima525'
-    groupId  = 'com.tomoima.debot'
-    artifactId = 'debot'
-    bintrayUser = bintray_user
-    bintrayKey = bintray_key
-    publishVersion =  library_version
-    desc = 'A simple Android library to create Debugging menu.'
-    website = siteUrl
-    licences = ['Apache-2.0']
-}
- */
-
-// Avoid Kotlin docs error
-tasks.withType(Javadoc) {
-    enabled = false
-}
-
-repositories {
-    mavenCentral()
-}
-
-
-// For JFrog artifactory upload
 afterEvaluate {
     publishing {
         publications {
@@ -85,5 +46,3 @@ afterEvaluate {
         }
     }
 }
-
-//apply from: rootProject.file('gradle/gradle-artifactory-upload.gradle')
